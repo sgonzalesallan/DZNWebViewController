@@ -883,6 +883,8 @@ static char DZNWebViewControllerKVOContext = 0;
         [self.navigationBar removeObserver:self forKeyPath:@"alpha" context:&DZNWebViewControllerKVOContext];
     }
     
+    self.navigationController.hidesBarsOnSwipe = NO;
+    
     [self.webView removeObserver:self forKeyPath:@"loading" context:&DZNWebViewControllerKVOContext];
     
     [self.progressView removeFromSuperview];
