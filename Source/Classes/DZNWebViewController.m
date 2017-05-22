@@ -136,6 +136,8 @@ static char DZNWebViewControllerKVOContext = 0;
 	[super viewWillDisappear:animated];
     
     [self clearProgressViewAnimated:animated];
+    
+    [self removeViews];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -873,14 +875,18 @@ static char DZNWebViewControllerKVOContext = 0;
     [super viewDidUnload];
 }
 
-- (void)dealloc
-{
+- (void) removeViews {
+    
     if (self.hideBarsWithGestures) {
         [self.navigationBar removeObserver:self forKeyPath:@"hidden" context:&DZNWebViewControllerKVOContext];
         [self.navigationBar removeObserver:self forKeyPath:@"center" context:&DZNWebViewControllerKVOContext];
         [self.navigationBar removeObserver:self forKeyPath:@"alpha" context:&DZNWebViewControllerKVOContext];
     }
+    
     [self.webView removeObserver:self forKeyPath:@"loading" context:&DZNWebViewControllerKVOContext];
+    
+    [self.progressView removeFromSuperview];
+    [self.toolbar removeFromSuperview];
     
     _backwardBarItem = nil;
     _forwardBarItem = nil;
